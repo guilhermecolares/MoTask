@@ -15,10 +15,10 @@ const App = () => {
             {!isLogged ? (
               <>
                 <button 
-                  className="font-poppins font-semibold text-sm px-5 py-2.5 rounded-xl 
+                  className="font-poppins font-semibold text-sm px-5 py-2.5 rounded-xl shadow-md
                              bg-slate-200 text-slate-900 
                              hover:bg-white hover:shadow-xl
-                             transition-all duration-300 shadow-md
+                             transition-all duration-300
                              active:scale-95"
                 >
                   LOGIN
@@ -26,11 +26,9 @@ const App = () => {
                 
                 <button 
                   className="font-poppins font-semibold text-sm px-5 py-2.5 
-                             border border-white/30 
-                             bg-white/5
-                             text-white/80
+                             border border-white/30 rounded-xl 
+                             bg-white/5 text-white/80
                              hover:bg-white/15 hover:border-white/50
-                             rounded-xl 
                              transition-all duration-300 shadow-md
                              active:scale-95"
                 >
@@ -54,7 +52,51 @@ const App = () => {
         </div>
       </header>
 
+      <main className="max-w-6xl mx-auto px-6
+      py-10 lg:py-20
+      ">
+        <div className="grid
+        grid-cols-1 lg:grid-cols-4
+        grid-rows-1 lg:grid-rows-2
+        gap-4 lg:gap-8
+        h-[60vh] lg:h-[400px]
+        ">
+          
+          <button className=" shadow-md
+          col-span-1 lg:col-span-2
+          row-span-1 lg:row-span-2
+           bg-white/10 rounded-3xl 
+          p-6 lg:p-8
+          flex items-start flex-col
+          hover:scale-105
+          transition-all duration-300
+           ">
+            <h2 className='font-poppins font-bold text-2xl text-slate-900'>CRIAR TAREAS</h2>
+            <p>Crie novas tarefas com prioridade e prazos.</p>
+          </button>
+          
+          <button className="
+          col-span-1 lg:col-span-2
+          row-span-1 bg-white/10 rounded-3xl
+          p-6 lg:p-8
+          mt-4 lg:mt-0
+          ">
+            MINHAS TAREFAS
+          </button>
+          
+          <button className="
+          col-span-1 lg:col-span-2
+          row-span-1 bg-white/10 rounded-3xl
+          p-6 lg:p-8
+          mt-4 lg:mt-0
+          ">
+            AGENDAMENTOS
+          </button>
+          
+        </div>
+      </main>
     </div>
+
   )
 }
 
