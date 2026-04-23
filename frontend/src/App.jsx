@@ -1,9 +1,8 @@
-import { useState } from 'react'
+import { useAuthStore } from './stores/useAuthStore'
 import { Outlet, Link } from 'react-router-dom'
 
 const App = () => {
-  const [isLogged, setIsLogged] = useState(false)
-  const [userName] = useState('Guilherme')
+  const { isLogged, userName } = useAuthStore()
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/50 to-amber-950 flex flex-col'>
