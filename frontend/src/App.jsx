@@ -1,8 +1,12 @@
 import { useAuthStore } from './stores/useAuthStore'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 
 const App = () => {
   const { isLogged, userName } = useAuthStore()
+
+  const location = useLocation()
+
+  const showFooter = location.pathname === '/'
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/50 to-amber-950 flex flex-col'>
@@ -52,13 +56,15 @@ const App = () => {
         <Outlet />
       </main>
 
-      <footer className="border-t border-white/10 mt-10 pt-12 pb-8">
-        <div className="max-w-xl mx-auto px-6 text-center">
-          <p className="font-poppins text-orange-200/70 text-sm">
-            © 2026 MoTask. Feito com ❤️ Guilherme Colares.
-          </p>
-        </div>
-      </footer>
+      {showFooter &&
+        <footer className="border-t border-white/10 mt-10 pt-12 pb-8">
+          <div className="max-w-xl mx-auto px-6 text-center">
+            <p className="font-poppins text-orange-200/70 text-sm">
+              © 2026 MoTask. Feito com ❤️ Guilherme Colares.
+            </p>
+          </div>
+        </footer>
+      }
     </div>
 
   )

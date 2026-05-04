@@ -5,7 +5,7 @@ const MOCK_USER_ID = new mongoose.Types.ObjectId()
 
 export const getTasks = async (req, res) => {
     try {
-        const userId = req.user?.id || MOCK_USER_ID
+        const userId = req.headers['x-user-id'] || MOCK_USER_ID
         const tasks = await Task.find({ userId }).sort({ createdAt: -1})
 
         return res.status(200).json({ success: true, count: tasks.length, tasks})
@@ -17,7 +17,7 @@ export const getTasks = async (req, res) => {
 
 export const createTask = async (req, res) => {
     try {
-        const userId = req.user?.id || MOCK_USER_ID
+        const userId = req.headers['x-user-id'] || MOCK_USER_ID
         const task = new Task({ ...req.body, userId })
         const savedTask = await task.save()
 
@@ -32,7 +32,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params
-    const userId = req.user?.id || MOCK_USER_ID
+    const userId = req.headers['x-user-id'] || MOCK_USER_ID
 
     const task = await Task.findById(id)
     if (!task) return res.status(404).json({ success: false, error: "Tarefa não encontrada!" })
@@ -64,7 +64,7 @@ export const updateTask = async (req, res) => {
 export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params
-    const userId = req.user?.id || MOCK_USER_ID
+    const userId = req.headers['x-user-id'] || MOCK_USER_ID
 
     const task = await Task.findById(id)
     if (!task) return res.status(404).json({ success: false, error: "Tarefa não encontrada!" })
