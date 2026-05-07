@@ -1,49 +1,29 @@
 import { useEffect, useState } from "react"
-import { fetchTask, updateTask, deleteTask } from "../api/tasks"
+
+import { useTaskStore } from "../stores/useTaskStore"
 
 import TaskCard from "../components/TaskCard"
 
 import TaskToolsBar from "../components/ui/TaskToolsBar"
 import SelectionFABS from "../components/ui/SelectionFABS"
+import ConfirmModal from "../components/ui/ConfirmModal"
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState([])
-
   const [selectMode, setSelectMode] = useState(false)
   const [selectedTasks, setSelectedTasks] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const tasks = useTaskStore(state => state.tasks)
+  const loadTask = useTaskStore(state => state.loadTask)
+  const toggleComplete = useTaskStore(state => state.toggleComplete)
+  const deleteTasks = useTaskStore(state => state.deleteTasks)
 
   useEffect(() => {
-    const connectionTest = async () => {
-      //localStorage.setItem('mockUserId', '69ea4386424590ccb84ddc88')
+      localStorage.setItem('mockUserId', '69fb655f249a788584fc1ea3')
 
-      console.log('Buscando Tarefas do MongoDB...')
-
-      try {
-        const response = await fetchTask()
-
-        setTasks(response.data.tasks)
-        console.log('Resposta do BackEnd:', response.data.tasks)
-      } catch (error) {
-        console.error('Erro na Request:', error.message)
-      }
-    }
-
-    connectionTest()
-  }, [])
-
-  const handleToggleCheck = async (taskId, currentStatus) => {
-    try {
-      await updateTask(taskId, {isCompleted: !currentStatus})
-
-      setTasks(oldTask => oldTask.map(task =>
-        task._id === taskId 
-        ? { ...task, isCompleted: !currentStatus }
-        : task
-      ))
-    } catch (error) {
-      console.error(`Erro ao atualizar tarefa: ${error}`)
-    }
-  }
+      loadTask()
+  }, [loadTask])
 
   const handleEnterSelectMode = () => {
     setSelectMode(true)
@@ -64,40 +44,46 @@ const Tasks = () => {
   }
 
   const handleDeleteSelected = async () => {
-    try {
-      for (const taskId of selectedTasks) {
-        await deleteTask(taskId)
-      }
-    
-
-    setTasks(current => current.filter(task => !selectedTasks.includes(task._id)))
-
-    handleExitSelectMode()
-    } catch (error) {
-      console.error('Erro ao deletar:', error)
-    }
+    if (selectedTasks.length === 0) return
+    setShowConfirmModal(true)
   }
+
+  const confirmDelete = async () => {
+    await deleteTasks(selectedTasks)
+    setShowConfirmModal(false)
+    handleExitSelectMode()
+  }
+
+  const cancelDelete = async () => setShowConfirmModal(false)
+
+  const searchLower = searchTerm.toLowerCase()
+
+  const filteredTasks = tasks.filter(task => 
+    task.title.toLowerCase().includes(searchLower)
+  )
 
   return (
     <div className="text-white text-3xl">
 
       <TaskToolsBar
         isSelectedMode={selectMode}
+        searchValue={searchTerm}
+        searchOnChange={(e) => setSearchTerm(e.target.value)}
         onEnterSelectMode={handleEnterSelectMode}
         onExitSelectMode={handleExitSelectMode}
       />
 
-      {tasks.length === 0 ? (
+      {filteredTasks.length === 0 ? (
           <p className="text-sm text-orange-200/70 mt-2">
           Nenhuma tarefas encontrada!
         </p>
       ) : (
       <div className="flex flex-col gap-3 mt-6">
-        {tasks.map(task => (
+        {filteredTasks.map(task => (
           <TaskCard 
           key={task._id}
           task={task}
-          onToggle={handleToggleCheck}
+          onToggle={toggleComplete}
           isSelectedMode={selectMode}
           isChecked={selectedTasks.includes(task._id)}
           onToggleSelect={handleToggleSelectedTasks}
@@ -114,6 +100,14 @@ const Tasks = () => {
       onDelete={handleDeleteSelected}
       />
     )}
+
+    <ConfirmModal 
+    isOpen={showConfirmModal}
+    onConfirm={confirmDelete}
+    onCancel={cancelDelete}
+    count={selectedTasks.length}
+    />
+
     </div>
   )
 }

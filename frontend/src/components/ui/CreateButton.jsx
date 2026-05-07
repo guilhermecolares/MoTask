@@ -1,9 +1,13 @@
 import { Plus } from "lucide-react"
+import { useNavigate } from 'react-router-dom'
 
 const CreateButton = () => {
+  const navigate = useNavigate()
+
   return (
-    <button className="
-    flex items-center gap-1.5
+    <button
+    onClick={() => navigate('/create')}
+    className=" flex items-center gap-1.5
     bg-orange-500/20 px-3 py-2
     text-orange-100 text-sm font-medium 
     border border-orange-400/30 rounded-xl

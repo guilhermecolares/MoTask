@@ -5,11 +5,11 @@ import SearchBar from "./SearchBar"
 import CreateButton from "./CreateButton"
 import DeleteButton from "./DeleteButton"
 
-const TaskToolsBar = ({ isSelectedMode, onEnterSelectMode, onExitSelectMode }) => {
+const TaskToolsBar = ({ isSelectedMode, onEnterSelectMode, onExitSelectMode, searchValue, searchOnChange }) => {
     return (
         <div className="flex items-center gap-3 mb-6">
             <FilterButton/>
-            <SearchBar/>
+            <SearchBar value={searchValue} onChange={searchOnChange}/>
             <CreateButton/>
             {isSelectedMode ? (
                 <button className="
