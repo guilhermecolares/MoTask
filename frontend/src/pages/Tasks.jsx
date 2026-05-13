@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 import { useTaskStore } from "../stores/useTaskStore"
+import { useFilterStore } from "../stores/useFilterStore"
 
 import TaskCard from "../components/TaskCard"
 
@@ -19,8 +20,13 @@ const Tasks = () => {
   const toggleComplete = useTaskStore(state => state.toggleComplete)
   const deleteTasks = useTaskStore(state => state.deleteTasks)
 
+  const columns = useFilterStore(state => state.columns)
+  const sortBy = useFilterStore(state => state.sortBy)
+  const filterPriority = useFilterStore(state => state.filterPriority)
+  const filterCategory = useFilterStore(state => state.filterCategory)
+
   useEffect(() => {
-      localStorage.setItem('mockUserId', '69fb655f249a788584fc1ea3')
+      localStorage.setItem('mockUserId', '6a0497b40ef6cdcadf0e05fd')
 
       loadTask()
   }, [loadTask])
@@ -60,7 +66,24 @@ const Tasks = () => {
 
   const filteredTasks = tasks.filter(task => 
     task.title.toLowerCase().includes(searchLower)
-  )
+  ).filter(task => 
+    filterPriority.length === 0 || filterPriority.includes(task.priority)
+  ).filter(task =>
+    filterCategory.length === 0 || filterCategory.includes(task.category)
+  ).sort((a, b) => {
+    switch (sortBy) {
+      case 'recentes':
+        return new Date(b.createdAt) - new Date(a.createdAt)
+      case 'antigos':
+        return new Date(a.createdAt) - new Date(b.createdAt)
+      case 'a-z':
+        return a.title.localeCompare(b.title)
+      case 'z-a':
+        return b.title.localeCompare(a.title)
+      default:
+        return 0
+    }
+  })
 
   return (
     <div className="text-white text-3xl">
@@ -78,7 +101,11 @@ const Tasks = () => {
           Nenhuma tarefas encontrada!
         </p>
       ) : (
-      <div className="flex flex-col gap-3 mt-6">
+      <div className={`grid gap-3 mt-6 ${
+        columns === 1 ? 'grid-cols-1' :
+        columns === 2 ? 'grid-cols-1 sm:grid-cols-2' :
+        'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+      }`}>
         {filteredTasks.map(task => (
           <TaskCard 
           key={task._id}

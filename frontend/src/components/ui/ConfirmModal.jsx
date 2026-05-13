@@ -41,7 +41,8 @@ const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, count }) =>
             font-poppins text-sm font-medium text-white/80
             hover:bg-white/20 active:scale-95
             transition-all duration-300 cursor-pointer
-            ">
+            "
+            aria-label="Botão de cancelado de exclusão das tarefas selecionadas.">
                 Cancelar
             </button>
             <button
@@ -50,7 +51,8 @@ const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, count }) =>
             font-poppins text-sm font-medium text-white
             hover:bg-red-500 active:scale-95
             transition-all duration-300 cursor-pointer
-            ">
+            "
+            aria-label="Botão de confirmação para excluir as tarefas selecionadas.">
                 Excluir
             </button>
         </div>
