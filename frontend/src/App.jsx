@@ -9,7 +9,7 @@ const App = () => {
   const showFooter = location.pathname === '/'
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/50 to-amber-950 flex flex-col'>
+    <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950 flex flex-col'>
       
       <header className="bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm">
         <div className="max-w-xl mx-auto px-6 py-5 flex justify-center items-center">

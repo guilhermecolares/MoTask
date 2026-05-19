@@ -41,5 +41,42 @@ export const useTaskStore = create((set, get) => ({
         } catch (error) {
             console.error(`Erro ao tentar deletar ${error}`)
         }
+    },
+
+    changePriority: async (taskId, priority) => {
+        try {
+            await updateTask(taskId, {priority})
+            set((state) => ({
+                tasks: state.tasks.map(task =>
+                    task._id === taskId ? { ...task, priority} : task
+                )
+            }))
+        } catch (error) {
+            console.error(`Erro na tentativa de mudar prioridade: ${error}`)
+        }
+    },
+
+    duplicateTask: async (task) => {
+        try {
+            const { _id, createdAt, updatedAt, ...taskData } = task
+
+            const tasks = get().tasks
+            const baseTitle = taskData.title.replace(/\s*\(\d+\)$/, '').trim()
+
+            const sameName = tasks.filter(t => {
+                const tBase = t.title.replace(/\s*\(\d+\)$/, '').trim()
+
+                return tBase === baseTitle
+            }).length
+
+            const response = await createTask({
+                ...taskData, title: `${baseTitle} (${sameName + 1})`
+            })
+            set((state) => ({
+                tasks: [response.data.task, ...state.tasks]
+            }))
+        } catch (error) {
+            console.error(`Erro ao duplicar:`, error)
+        }
     }
 }))

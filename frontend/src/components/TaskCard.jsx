@@ -1,17 +1,19 @@
 import React from 'react'
 import { Check } from 'lucide-react'
 
-const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect }) => {
+import TaskMenu from './TaskMenu'
+
+const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect, onSingleDelete, onChangePriority, onDuplicateTask }) => {
     const priorityColors = {
-        alta: 'bg-red-500',
-        moderada: 'bg-yellow-500',
+        alta: 'bg-red-600',
+        moderada: 'bg-yellow-600',
         baixa: 'bg-emerald-300'
     }
 
   return (
     <div className='
     bg-white/10 rounded-2xl flex items-stretch overflow-hidden 
-    hover:bg-white/15 transition-all duration-300 
+    hover:bg-white/15 transition-all duration-300
     border border-white/0 hover:border-white/20 hover:shadow-sm
     '>
 
@@ -37,6 +39,7 @@ const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect })
         <div className={`w-1 flex-shrink-0 ${priorityColors[task.priority] || `bg-yellow-500`}`}/>
 
             <div className='flex-1 p-4 min-w-0'>
+
                 <h3 className={`font-poppins font-semibold text-white text-lg
                     ${task.isCompleted ? `line-through text-white/50` : ''}`}>
                     {task.title}
@@ -65,21 +68,37 @@ const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect })
                 )}
             </div>
 
-            <button className='flex items-center px-4 flex-shrink-0 cursor-pointer'
-                    onClick={() => onToggle(task._id, task.isCompleted)}>
+            <div className='flex items-center flex-shrink-0'>
+
+                <div className='flex items-center pr-2'>
+                    <TaskMenu 
+                        task={task}
+                        onEdit={(t) => console.log(`Editar: ${t._id}`)}
+                        onDelete={onSingleDelete}
+                        onChangePriority={onChangePriority}
+                        onDuplicate={onDuplicateTask}
+                    />
+                </div>
+
+
+                <button
+                onClick={() => onToggle(task._id, task.isCompleted)} 
+                className='flex items-center pr-4 flex-shrink-0 cursor-pointer'
+                >
                     <div className={`
-                    w-6 h-6 rounded-full border-2
-                    ${task.isCompleted 
-                        ? 'bg-gray-400 border-gray-400'
-                        : 'border-white/30'}
-                    flex items-center justify-center cursor-pointer
-                    hover:border-white/60 transition-all
+                        w-6 h-6 rounded-full border-2
+                        ${task.isCompleted 
+                            ? 'bg-gray-400 border-gray-400'
+                            : 'border-white/30'}
+                        flex items-center justify-center cursor-pointer
+                        hover:border-white/60 transition-all
                     `}>
                         {task.isCompleted && (
                             <Check size={14} strokeWidth={3} className="text-white" />
                         )}
                     </div>
                 </button>
+            </div>
         </div>
   )
 }

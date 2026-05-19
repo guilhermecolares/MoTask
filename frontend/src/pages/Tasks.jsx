@@ -19,6 +19,8 @@ const Tasks = () => {
   const loadTask = useTaskStore(state => state.loadTask)
   const toggleComplete = useTaskStore(state => state.toggleComplete)
   const deleteTasks = useTaskStore(state => state.deleteTasks)
+  const changePriority = useTaskStore(state => state.changePriority)
+  const duplicateTask = useTaskStore(state => state.duplicateTask)
 
   const columns = useFilterStore(state => state.columns)
   const sortBy = useFilterStore(state => state.sortBy)
@@ -54,10 +56,23 @@ const Tasks = () => {
     setShowConfirmModal(true)
   }
 
+  const handleSingleDelete = (task) => {
+    setSelectedTasks([task._id])
+    setShowConfirmModal(true)
+  }
+
   const confirmDelete = async () => {
     await deleteTasks(selectedTasks)
     setShowConfirmModal(false)
     handleExitSelectMode()
+  }
+
+  const handleChangePriority = (task, newPriority) => {
+    changePriority(task._id, newPriority)
+  }
+
+  const handleDuplicate = (task) => {
+    duplicateTask(task)
   }
 
   const cancelDelete = async () => setShowConfirmModal(false)
@@ -114,6 +129,9 @@ const Tasks = () => {
           isSelectedMode={selectMode}
           isChecked={selectedTasks.includes(task._id)}
           onToggleSelect={handleToggleSelectedTasks}
+          onSingleDelete={handleSingleDelete}
+          onChangePriority={handleChangePriority}
+          onDuplicateTask={handleDuplicate}
           />
         ))}
       </div>
