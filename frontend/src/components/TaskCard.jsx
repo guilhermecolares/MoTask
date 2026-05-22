@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 
 import TaskMenu from './TaskMenu'
 
-const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect, onSingleDelete, onChangePriority, onDuplicateTask }) => {
+const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect, onSingleDelete, onChangePriority, onDuplicateTask, onEdit }) => {
     const priorityColors = {
         alta: 'bg-red-600',
         moderada: 'bg-yellow-600',
@@ -61,10 +61,14 @@ const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect, o
                     </div>
                 )}
 
-                {task.category && (
-                    <span className='inline-block mt-2 px-2 py-0.5 rounded-full text-xs text-orange-200/50 bg-white/5'>
-                        📂{task.category}
-                    </span>
+                {task.category?.length > 0 && (
+                    <div className="flex gap-1 mt-2 flex-wrap">
+                        {task.category.map(cat => (
+                        <span key={cat} className='text-xs bg-white/5 text-orange-200/50 px-2 py-0.5 rounded-full'>
+                            📂{cat}
+                        </span>
+                        ))}
+                    </div>
                 )}
             </div>
 
@@ -73,7 +77,7 @@ const TaskCard = ({ task, onToggle, isSelectedMode, isChecked, onToggleSelect, o
                 <div className='flex items-center pr-2'>
                     <TaskMenu 
                         task={task}
-                        onEdit={(t) => console.log(`Editar: ${t._id}`)}
+                        onEdit={onEdit}
                         onDelete={onSingleDelete}
                         onChangePriority={onChangePriority}
                         onDuplicate={onDuplicateTask}

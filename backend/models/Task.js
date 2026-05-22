@@ -21,7 +21,7 @@ const TaskSchema = new mongoose.Schema({
     },
 
     category: {
-        type: String,
+        type: [String],
         enum: {
             values: ['trabalho', 'pessoal', 'estudo', 'outros'],
             message: 'Categoria deve ser trabalho, pessoal ou estudo.'

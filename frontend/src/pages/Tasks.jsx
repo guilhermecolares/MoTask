@@ -8,12 +8,16 @@ import TaskCard from "../components/TaskCard"
 import TaskToolsBar from "../components/ui/TaskToolsBar"
 import SelectionFABS from "../components/ui/SelectionFABS"
 import ConfirmModal from "../components/ui/ConfirmModal"
+import EditModal from "../components/ui/EditModal"
+import { updateTask } from "../api/tasks"
 
 const Tasks = () => {
   const [selectMode, setSelectMode] = useState(false)
   const [selectedTasks, setSelectedTasks] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [showConfirmModal, setShowConfirmModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editingTask, setEditingTask] = useState(null)
 
   const tasks = useTaskStore(state => state.tasks)
   const loadTask = useTaskStore(state => state.loadTask)
@@ -100,6 +104,18 @@ const Tasks = () => {
     }
   })
 
+  const handleEdit = (task) => {
+    setEditingTask(task)
+    setShowEditModal(true)
+  }
+
+  const handleSaveEdit = async (updatedData) => {
+    await updateTask(editingTask._id, updatedData)
+    setShowEditModal(false)
+    setEditingTask(null)
+    loadTask()
+  }
+
   return (
     <div className="text-white text-3xl">
 
@@ -132,6 +148,7 @@ const Tasks = () => {
           onSingleDelete={handleSingleDelete}
           onChangePriority={handleChangePriority}
           onDuplicateTask={handleDuplicate}
+          onEdit={handleEdit}
           />
         ))}
       </div>
@@ -151,6 +168,13 @@ const Tasks = () => {
     onConfirm={confirmDelete}
     onCancel={cancelDelete}
     count={selectedTasks.length}
+    />
+
+    <EditModal 
+    task={editingTask}
+    isOpen={showEditModal}
+    onSave={handleSaveEdit}
+    onCancel={() => { setShowEditModal(false); setEditingTask(null) }}
     />
 
     </div>
