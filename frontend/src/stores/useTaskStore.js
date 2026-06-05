@@ -78,5 +78,17 @@ export const useTaskStore = create((set, get) => ({
         } catch (error) {
             console.error(`Erro ao duplicar:`, error)
         }
+    },
+
+    createTaskAction: async (taskData) => {
+        try {
+            const response = await createTask(taskData)
+            set((state) => ({
+                tasks: [response.data.task, ...state.tasks]
+            }))
+        } catch (error) {
+            console.error(`Falha ao criar tarefa: ${error}`)
+            throw error
+        }
     }
 }))

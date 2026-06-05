@@ -3,12 +3,13 @@ import { useEffect, useState } from "react"
 import { useTaskStore } from "../stores/useTaskStore"
 import { useFilterStore } from "../stores/useFilterStore"
 
-import TaskCard from "../components/TaskCard"
+import TaskCard from "../components/tasks/TaskCard"
+import TaskToolsBar from "../components/tasks/TaskToolsBar"
+import SelectionFABS from "../components/tasks/SelectionFABS"
 
-import TaskToolsBar from "../components/ui/TaskToolsBar"
-import SelectionFABS from "../components/ui/SelectionFABS"
 import ConfirmModal from "../components/ui/ConfirmModal"
 import EditModal from "../components/ui/EditModal"
+
 import { updateTask } from "../api/tasks"
 
 const Tasks = () => {
@@ -88,7 +89,7 @@ const Tasks = () => {
   ).filter(task => 
     filterPriority.length === 0 || filterPriority.includes(task.priority)
   ).filter(task =>
-    filterCategory.length === 0 || filterCategory.includes(task.category)
+    filterCategory.length === 0 || (task.category && task.category.some(cat => filterCategory.includes(cat)))
   ).sort((a, b) => {
     switch (sortBy) {
       case 'recentes':

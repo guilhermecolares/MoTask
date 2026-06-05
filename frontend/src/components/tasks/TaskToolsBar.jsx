@@ -1,9 +1,9 @@
 import { X } from "lucide-react"
 
-import FilterButton from "./FilterButton"
-import SearchBar from "./SearchBar"
-import CreateButton from "./CreateButton"
-import DeleteButton from "./DeleteButton"
+import FilterButton from "../filters/FilterButton"
+import SearchBar from "../ui/SearchBar"
+import CreateButton from "../ui/CreateButton"
+import DeleteButton from "../ui/DeleteButton"
 
 const TaskToolsBar = ({ isSelectedMode, onEnterSelectMode, onExitSelectMode, searchValue, searchOnChange }) => {
     return (

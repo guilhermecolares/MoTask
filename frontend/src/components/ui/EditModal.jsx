@@ -2,10 +2,8 @@ import { useState } from "react"
 import { X, Save} from "lucide-react"
 
 const EditModal = ({ task, isOpen, onSave, onCancel }) => {
-    if (!isOpen || !task) return null
-
-    const [title, setTitle] = useState(task.title || '')
-    const [description, setDescription] = useState(task.description || '')
+    const [title, setTitle] = useState(task ? task.title : '')
+    const [description, setDescription] = useState(task ? task.description : '')
 
     const priorities = [
         { label: 'Alta', value: 'alta'},
@@ -13,7 +11,7 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
         { label: 'Baixa', value: 'baixa'},
     ]
 
-    const [priority, setPriority] = useState(task.priority || 'media')
+    const [priority, setPriority] = useState(task ? task.priority : 'media')
 
     const categories = [
         { label: 'Trabalho', value: 'trabalho'},
@@ -22,7 +20,7 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
         { label: 'Outros', value: 'outros'},
     ]
 
-    const [selectedCategories, setSelectedCategories] = useState(task.category || [])
+    const [selectedCategories, setSelectedCategories] = useState(task ?task.category : [])
 
     const toggleCategory = (categ) => {
         setSelectedCategories(prev =>
@@ -39,6 +37,8 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
             category: selectedCategories,
         })
     }
+
+    if (!isOpen || !task) return null
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

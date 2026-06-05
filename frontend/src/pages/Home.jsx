@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Card from "../components/Card"
+import Card from "../components/ui/Card"
 
 const Home = () => {
   return (

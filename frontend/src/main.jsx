@@ -9,7 +9,7 @@ import Profile from './pages/Profile.jsx'
 import Create from './pages/Create.jsx'
 import Tasks from './pages/Tasks.jsx'
 import Schedule from './pages/Schedule.jsx'
-import AuthPages from './components/AuthPages.jsx'
+import AuthPages from './components/auth/AuthPages.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
