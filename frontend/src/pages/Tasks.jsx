@@ -171,7 +171,8 @@ const Tasks = () => {
     count={selectedTasks.length}
     />
 
-    <EditModal 
+    <EditModal
+    key={editingTask?._id} 
     task={editingTask}
     isOpen={showEditModal}
     onSave={handleSaveEdit}

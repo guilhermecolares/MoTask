@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState} from "react"
 import { X, Save} from "lucide-react"
 
 const EditModal = ({ task, isOpen, onSave, onCancel }) => {
@@ -22,10 +22,32 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
 
     const [selectedCategories, setSelectedCategories] = useState(task ?task.category : [])
 
+    const [tags, setTags] = useState(task ? task.tags : [])
+    const [tagInput, setTagInput] = useState('')
+
     const toggleCategory = (categ) => {
         setSelectedCategories(prev =>
             prev.includes(categ) ? prev.filter(cat => cat !== categ) : [...prev, categ]
         )
+    }
+
+    const addTag = () => {
+        const trimmed = tagInput.trim().toLowerCase()
+        if (trimmed && !tags.includes(trimmed) && tags.length < 6) {
+            setTags([...tags, trimmed])
+            setTagInput('')
+        }
+    }
+
+    const removeTag = (tag) => {
+        setTags(tags.filter(t => t !== tag))
+    }
+
+    const handleTagKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            addTag()
+        }
     }
 
     const handleSubmit = (e) => {
@@ -35,6 +57,7 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
             description,
             priority,
             category: selectedCategories,
+            tags,
         })
     }
 
@@ -133,6 +156,57 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
                         ))}
                     </div>
                 </div>
+
+                <div>
+                    <label className="block text-white/60 text-sm mb-1.5 uppercase tracking-wider">
+                        Tags
+                    </label>
+
+                    {tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2">
+                        {tags.map(tag => (
+                            <span
+                            key={tag}
+                            className="inline-flex items-center gap-1 px-2 py-0.5
+                                        rounded-full text-xs bg-white/10 text-orange-200"
+                            >
+                            #{tag}
+                            <button
+                                type="button"
+                                onClick={() => removeTag(tag)}
+                                className="text-white/40 hover:text-white/80 transition-colors"
+                            >
+                                <X size={12} />
+                            </button>
+                            </span>
+                        ))}
+                        </div>
+                    )}
+
+                    <div className="flex gap-2">
+                        <input
+                        type="text"
+                        value={tagInput}
+                        onChange={(e) => setTagInput(e.target.value)}
+                        onKeyDown={handleTagKeyDown}
+                        placeholder="Adicionar tag..."
+                        maxLength={15}
+                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5
+                                    text-white text-sm placeholder:text-white/20 outline-none
+                                    focus:border-white/30 transition-all"
+                        />
+                        <button
+                        type="button"
+                        onClick={addTag}
+                        disabled={!tagInput.trim() || tags.length >= 5}
+                        className="px-3 py-1.5 rounded-xl bg-white/10 text-white/70 text-sm
+                                    hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed
+                                    transition-all"
+                        >
+                        +
+                        </button>
+                    </div>
+                    </div>
 
                 <div className="flex gap-3 justify-end pt-4 border-t border-white/10">
                     <button
