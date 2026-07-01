@@ -5,6 +5,7 @@ import express from 'express'
 import cors from 'cors'
 import connectDB from './config/database.js'
 import routerTask from './routes/tasks.js'
+import authRoutes from './routes/auth.js'
 
 
 const app = express()
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/tasks', routerTask)
+app.use('/api/auth', authRoutes)
 
 
 app.listen(port, () => {

@@ -1,11 +1,10 @@
-import Task from "../models/Task.js"
+import Task from "../../models/Task.js"
 import mongoose from "mongoose"
 
-const MOCK_USER_ID = new mongoose.Types.ObjectId()
 
 export const getTasks = async (req, res) => {
     try {
-        const userId = req.headers['x-user-id'] || MOCK_USER_ID
+        const userId = req.user.id
         const tasks = await Task.find({ userId }).sort({ createdAt: -1})
 
         return res.status(200).json({ success: true, count: tasks.length, tasks})
