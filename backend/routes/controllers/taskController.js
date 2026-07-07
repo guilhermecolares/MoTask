@@ -16,7 +16,7 @@ export const getTasks = async (req, res) => {
 
 export const createTask = async (req, res) => {
     try {
-        const userId = req.headers['x-user-id'] || MOCK_USER_ID
+        const userId = req.user.id
         const task = new Task({ ...req.body, userId })
         const savedTask = await task.save()
 
@@ -31,7 +31,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params
-    const userId = req.headers['x-user-id'] || MOCK_USER_ID
+    const userId = req.user.id
 
     const task = await Task.findById(id)
     if (!task) return res.status(404).json({ success: false, error: "Tarefa não encontrada!" })
@@ -63,7 +63,7 @@ export const updateTask = async (req, res) => {
 export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params
-    const userId = req.headers['x-user-id'] || MOCK_USER_ID
+    const userId = req.user.id
 
     const task = await Task.findById(id)
     if (!task) return res.status(404).json({ success: false, error: "Tarefa não encontrada!" })
