@@ -23,7 +23,8 @@ export const useAuthStore = create(
           user: data.user,
           token: data.token,
           isLogged: true,
-          userName: data.user.name
+          userName: data.user.name,
+          createdAt: data.user.createdAt
         })
         localStorage.setItem('token', data.token)
       },
@@ -42,7 +43,8 @@ export const useAuthStore = create(
           user: data.user,
           token: data.token,
           isLogged: true,
-          userName: data.user.name
+          userName: data.user.name,
+          createdAt: data.user.createdAt
         })
         localStorage.setItem('token', data.token)
       },
@@ -52,7 +54,8 @@ export const useAuthStore = create(
           user: null,
           token: null,
           isLogged: false,
-          userName: ''
+          userName: '',
+          createdAt: null
         })
         localStorage.removeItem('token')
       }

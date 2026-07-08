@@ -38,10 +38,10 @@ const Login = () => {
   return (
     <div className='
     min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950
-    flex items-center justify-center py-20
+    flex items-center justify-center py-5 md:py-20
     '>
-      <div className='flex rounded-2xl overflow-hidden border border-white/10 shadow-2xl max-w-2xl w-full'>
-        <div className='w-1/2 p-8 bg-gradient-to-br from-orange-950 to-amber-950 overflow-hidden relative'>  
+      <div className='flex flex-col md:flex-row rounded-2xl overflow-hidden border border-white/10 shadow-2xl max-w-2xl w-full'>
+        <div className='w-full md:w-1/2 p-8 bg-gradient-to-br from-orange-950 to-amber-950 overflow-hidden relative'>  
           <div 
           key={isLogin ? 'login' : 'register'} 
           className='animate-fade-in'>
@@ -97,6 +97,7 @@ const Login = () => {
                   <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
+                  minLength={6}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
@@ -137,7 +138,7 @@ const Login = () => {
           </div>
         </div>
 
-        <div className='w-1/2 p-8 bg-white/5 flex flex-col items-center justify-center text-center'>
+        <div className='w-full md:w-1/2 p-8 bg-white/5 flex flex-col items-center justify-center text-center'>
               {isLogin ? (
                 <div className='space-y-4'>
                   <h2 className='text-2xl font-poppins font-semibold text-white'>Bem-vindo de volta!</h2>
