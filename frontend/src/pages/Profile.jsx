@@ -1,5 +1,6 @@
 import { useAuthStore } from "../stores/useAuthStore"
 import { User, Mail, Calendar } from "lucide-react"
+import Breadcrumb from "../components/ui/Breadcrumb"
 
 const Profile = () => {
   const user = useAuthStore(state => state.user)
@@ -7,9 +8,11 @@ const Profile = () => {
   const createdAt = useAuthStore(state => state.createdAt)
 
   return (
+    
     <div className="
     min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950">
       <div className="text-white max-w-md mx-auto pt-10">
+        <Breadcrumb to="/" label="Início" />
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center">
           <div className="w-20 h-20 rounded-full bg-orange-500/20 flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl font-poppins font-semibold text-amber-400">

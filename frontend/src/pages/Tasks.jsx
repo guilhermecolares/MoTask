@@ -9,6 +9,7 @@ import SelectionFABS from "../components/tasks/SelectionFABS"
 
 import ConfirmModal from "../components/ui/ConfirmModal"
 import EditModal from "../components/ui/EditModal"
+import Breadcrumb from "../components/ui/Breadcrumb"
 
 import { updateTask } from "../api/tasks"
 
@@ -119,6 +120,8 @@ const Tasks = () => {
 
   return (
     <div className="text-white text-3xl">
+
+      <Breadcrumb to="/" label="Início" />
 
       <TaskToolsBar
         isSelectedMode={selectMode}

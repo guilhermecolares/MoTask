@@ -27,7 +27,7 @@ const Login = () => {
       } else {
         await register(name, email, password)
       }
-      navigate('/tasks')
+      navigate('/')
     } catch (err) {
       setError(err.message || 'Erro ao processar. Tente Novamente!')
     } finally {
