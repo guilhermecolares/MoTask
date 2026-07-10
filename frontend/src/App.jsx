@@ -1,19 +1,16 @@
 import { useAuthStore } from './stores/useAuthStore'
-import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 
 const App = () => {
   const { isLogged, userName } = useAuthStore()
 
-  const location = useLocation()
   const navigate = useNavigate()
 
-  const showFooter = location.pathname === '/'
-
   return (
-    <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950 flex flex-col'>
-      
-      <header className="bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm">
+    <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950 flex flex-col relative'>
+
+      <header className="relative z-10 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm">
         <div className="max-w-xl mx-auto px-6 py-5 flex justify-center items-center">
           <div className="flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl px-3 py-2 shadow-lg">
             
@@ -76,21 +73,10 @@ const App = () => {
         </div>
       </header>
 
-      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-10 lg:py-20">
+      <main className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-6 py-10">
         <Outlet />
       </main>
-
-      {showFooter &&
-        <footer className="border-t border-white/10 mt-10 pt-12 pb-8">
-          <div className="max-w-xl mx-auto px-6 text-center">
-            <p className="font-poppins text-orange-200/70 text-sm">
-              © 2026 MoTask. Feito com ❤️ Guilherme Colares.
-            </p>
-          </div>
-        </footer>
-      }
     </div>
-
   )
 }
 

@@ -8,10 +8,15 @@ export default {
   ],
   theme: {
     extend: {
-    fontFamily: {
-      'poppins': ['Poppins', 'sans-serif'],
-      'inter': ['Inter', 'sans-serif']
-      }
+      fontFamily: {
+        'poppins': ['Poppins', 'system-ui', 'sans-serif'],
+        'inter': ['Inter', 'system-ui', 'sans-serif']
+      },
+      fontWeight: {
+        bold: '700',
+        semibold: '600',
+        medium: '500',
+      },
     },
   },
   plugins: [
