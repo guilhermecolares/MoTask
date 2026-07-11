@@ -12,7 +12,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.use(cors({
-    origin: '*',
+    origin: 'https://mo-task.vercel.app',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
