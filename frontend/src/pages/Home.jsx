@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import { useAuthStore } from "../stores/useAuthStore"
 import { useTaskStore } from "../stores/useTaskStore"
@@ -11,6 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     if (tasks.length === 0) loadTask()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const pendentes = tasks.filter(t => !t.isCompleted).length
@@ -36,6 +37,20 @@ const Home = () => {
   }
 
   const cardBase = "bg-white/[0.07] border border-white/[0.08] rounded-3xl p-6 lg:p-7 hover:bg-white/[0.12] hover:border-white/[0.15] transition-all duration-300"
+
+  const frases = [
+    "Um passo de cada vez. Você está construindo algo incrível. 💪",
+    "Organizar é o primeiro passo para realizar. ✨",
+    "Hoje é um bom dia para começar. 🚀",
+    "Foco no que importa. O resto a gente resolve depois. 🎯",
+    "Você tem tempo. Respira e vai com calma. 🧘",
+    "Pequenas ações diárias levam a grandes resultados. 🌱",
+    "Não se cobre tanto. Você está indo bem. 💙",
+  ]
+
+  const [fraseDoDia] = useState(() => 
+    frases[Math.floor(Math.random() * frases.length)]
+  )
 
   return (
     <div className="animate-fade-in space-y-5 lg:space-y-6">
@@ -202,7 +217,10 @@ const Home = () => {
             </div>
           )}
         </div>
-
+        
+      </div>
+      <div className="mt-4 bg-white/[0.05] border border-white/[0.08] rounded-2xl p-5 text-center">
+        <p className="text-orange-200/40 text-sm italic">"{fraseDoDia}"</p>
       </div>
     </div>
   )

@@ -11,8 +11,20 @@ import authRoutes from './routes/auth.js'
 const app = express()
 const port = process.env.PORT || 5000
 
+const allowedOrigins = [
+    'https://mo-task.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+]
+
 app.use(cors({
-    origin: 'https://mo-task.vercel.app',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Bloqueado pelo CORS'))
+        }
+    },
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
