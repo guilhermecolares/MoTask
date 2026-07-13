@@ -20,7 +20,7 @@ const TaskSchema = new mongoose.Schema({
         default: false
     },
 
-    dueData: {
+    dueDate: {
         type: Date,
         default: null
     },
