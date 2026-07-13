@@ -73,7 +73,7 @@ const App = () => {
         </div>
       </header>
 
-      <main className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-6 py-10">
+      <main className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-6 py-4 lg:py-6">
         <Outlet />
       </main>
     </div>

@@ -40,7 +40,7 @@ export const updateTask = async (req, res) => {
       return res.status(403).json({ success: false, error: "Não autorizado!" })
     }
 
-    const allowedUpdates = ['title', 'description', 'isCompleted', 'category', 'tags', 'priority']
+    const allowedUpdates = ['title', 'description', 'isCompleted', 'category', 'tags', 'priority', 'dueDate']
     const updates = {}
     allowedUpdates.forEach(campo => {
       if (req.body[campo] !== undefined) {

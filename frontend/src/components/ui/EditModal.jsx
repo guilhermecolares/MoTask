@@ -13,6 +13,8 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
 
     const [priority, setPriority] = useState(task ? task.priority : 'media')
 
+    const [dueDate, setDueDate] = useState(task?.dueDate ? task.dueDate.split('T')[0] : '')
+
     const categories = [
         { label: 'Trabalho', value: 'trabalho'},
         { label: 'Estudo', value: 'estudo'},
@@ -58,6 +60,7 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
             priority,
             category: selectedCategories,
             tags,
+            dueDate: dueDate || null
         })
     }
 
@@ -134,6 +137,22 @@ const EditModal = ({ task, isOpen, onSave, onCancel }) => {
                             </button>
                         ))}
                     </div>
+                </div>
+
+                <div>
+                    <label className="block text-white/60 text-sm mb-1.5 uppercase tracking-wider">
+                        Data de Entrega
+                    </label>
+                    <input 
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                    className="
+                    w-full bg-white/5 border border-white/10 rounded-xl
+                    px-4 py-2.5 text-white text-sm outline-none
+                    focus:border-white/30 transition-all
+                    "
+                    />
                 </div>
 
                 <div>

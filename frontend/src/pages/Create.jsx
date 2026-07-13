@@ -16,6 +16,7 @@ const Create = () => {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [tags, setTags] = useState([])
   const [tagInput, setTagInput] = useState('')
+  const [dueDate, setDueDate] = useState('')
 
   const priorities = [
     { label: 'Alta', value: 'alta' },
@@ -57,12 +58,15 @@ const Create = () => {
     e.preventDefault()
     if (!title.trim()) return
 
+    console.log('Enviando:', { title, description, priority, category: selectedCategories, tags, dueDate })
+
     await createTask({
       title, 
       description,
       priority,
       category: selectedCategories,
-      tags
+      tags,
+      dueDate: dueDate || null
     })
 
     navigate('/tasks')
@@ -75,6 +79,7 @@ const Create = () => {
     setSelectedCategories([])
     setTags([])
     setTagInput('')
+    setDueDate('')
   }
 
   const isDirty = title.trim() || description.trim() || priority !== 'media' || selectedCategories.length > 0 || tags.length > 0
@@ -155,6 +160,22 @@ const Create = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        <div>
+          <label className="block text-white/60 text-sm mb-1.5 uppercase tracking-wider">
+            Data de Entrega
+          </label>
+          <input 
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          className="
+          w-full bg-white/5 border border-white/10 rounded-xl
+          px-4 py-2.5 text-white text-sm outline-none
+          focus:border-white/30 transition-all
+          "
+          />
         </div>
 
         <div>

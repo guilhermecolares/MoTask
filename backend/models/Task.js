@@ -20,6 +20,11 @@ const TaskSchema = new mongoose.Schema({
         default: false
     },
 
+    dueData: {
+        type: Date,
+        default: null
+    },
+
     category: {
         type: [String],
         enum: {
