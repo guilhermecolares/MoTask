@@ -10,6 +10,7 @@ import SelectionFABS from "../components/tasks/SelectionFABS"
 import ConfirmModal from "../components/ui/ConfirmModal"
 import EditModal from "../components/ui/EditModal"
 import Breadcrumb from "../components/ui/Breadcrumb"
+import { Skeleton } from "../components/ui/Skeleton"
 
 import { updateTask } from "../api/tasks"
 
@@ -27,6 +28,7 @@ const Tasks = () => {
   const deleteTasks = useTaskStore(state => state.deleteTasks)
   const changePriority = useTaskStore(state => state.changePriority)
   const duplicateTask = useTaskStore(state => state.duplicateTask)
+  const isLoading = useTaskStore(state => state.isLoading)
 
   const columns = useFilterStore(state => state.columns)
   const sortBy = useFilterStore(state => state.sortBy)
@@ -131,7 +133,19 @@ const Tasks = () => {
         onExitSelectMode={handleExitSelectMode}
       />
 
-      {filteredTasks.length === 0 ? (
+      {isLoading && tasks.length === 0 && (
+        <div className={`grid gap-3 mt-6 ${
+          columns === 1 ? 'grid-cols-1' :
+          columns === 2 ? 'grid-cols-1 sm:grid-cols-2' :
+          'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+        }`}>
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <Skeleton key={i} className="h-32 rounded-2xl" />
+          ))}
+        </div>
+      )}
+
+      {!isLoading && filteredTasks.length === 0 ? (
           <p className="text-sm text-orange-200/70 mt-2">
           Nenhuma tarefas encontrada!
         </p>

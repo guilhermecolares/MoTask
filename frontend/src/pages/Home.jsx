@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
+import { ArrowRight, Plus, Calendar, ListTodo, TrendingUp, AlertTriangle, Clock } from 'lucide-react'
+
+import { Skeleton } from '../components/ui/Skeleton'
 import { useAuthStore } from "../stores/useAuthStore"
 import { useTaskStore } from "../stores/useTaskStore"
-import { ArrowRight, Plus, Calendar, ListTodo, TrendingUp, AlertTriangle, Clock } from 'lucide-react'
 
 const Home = () => {
   const userName = useAuthStore(state => state.userName)
   const tasks = useTaskStore(state => state.tasks)
   const loadTask = useTaskStore(state => state.loadTask)
+  const isLoading = useTaskStore(state => state.isLoading)
 
   useEffect(() => {
     if (tasks.length === 0) loadTask()
@@ -51,6 +54,22 @@ const Home = () => {
   const [fraseDoDia] = useState(() => 
     frases[Math.floor(Math.random() * frases.length)]
   )
+
+  if (isLoading && tasks.length === 0) {
+    return (
+      <div className='animate-fade-in space-y-5 lg:space-y-6'>
+        <div className='flex items-center gap-4 mb-1'>
+          <Skeleton className='w-12 h-12 rounded-full' />
+            <Skeleton className='w-48 h-5 rounded' />
+            <Skeleton className='w-32 h-4 rounded' />
+        </div>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6'>
+          <Skeleton className='lg:col-span-2 h-48 rounded-3xl'/>
+          <Skeleton className='h-48 rounded-3xl' />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="animate-fade-in space-y-5 lg:space-y-6">

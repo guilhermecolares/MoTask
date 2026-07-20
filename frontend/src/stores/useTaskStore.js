@@ -9,6 +9,8 @@ export const useTaskStore = create((set, get) => ({
     loadTask: async () => {
         set({ isLoading: true, error: null})
         try {
+            await new Promise(res => setTimeout(res, 3000))
+
             const response = await fetchTask()
             set({ tasks: response.data.tasks, isLoading: false })
         } catch (error) {
