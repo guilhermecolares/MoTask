@@ -1,12 +1,15 @@
 import { useAuthStore } from "../stores/useAuthStore"
-import { User, Mail, Calendar } from "lucide-react"
+import { useTaskStore } from "../stores/useTaskStore"
+import { User, Mail, Calendar, ListTodo } from "lucide-react"
 import Breadcrumb from "../components/ui/Breadcrumb"
 
 const Profile = () => {
   const user = useAuthStore(state => state.user)
   const userName = useAuthStore(state => state.userName)
   const createdAt = useAuthStore(state => state.createdAt)
+  const tasks = useTaskStore(state => state.tasks)
 
+  const totalTasks = tasks.length
   return (
     
     <div className="
@@ -36,6 +39,10 @@ const Profile = () => {
             <div className="flex items-center gap-3 text-sm text-orange-200/70 bg-white/5 rounded-xl px-4 py-3">
               <Calendar size={16} className="text-orange-400 flex-shrink-0"/>
               <span>Membro desde {new Date(createdAt).toLocaleDateString('pt-BR')}</span>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-orange-200/70 bg-white/5 rounded-xl px-4 py-3">
+              <ListTodo size={16} className="text-orange-400 flex-shrink-0" />
+              <span>{totalTasks} tarefas criadas</span>
             </div>
           </div>
         </div>

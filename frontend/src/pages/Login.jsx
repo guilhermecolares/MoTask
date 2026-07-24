@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LogIn, UserPlus, Eye, EyeOff } from 'lucide-react'
+import { LogIn, UserPlus, Eye, EyeOff, UserCheck } from 'lucide-react'
 import { useAuthStore } from '../stores/useAuthStore.js'
 
 const Login = () => {
@@ -133,6 +133,25 @@ const Login = () => {
               '>
                 {isLogin ? <LogIn size={16} /> : <UserPlus size={16} />}
                 {isLoading ? 'Carregando...' : isLogin ? 'Entrar' : 'Criar Conta'}
+              </button>
+
+              <button
+              type='button'
+              onClick={async () => {
+                try {
+                  await login('demo@motask.com', 'demo123')
+                  navigate('/')
+                } catch (err) {
+                  setError('Erro ao entrar com conta demo.', err)
+                }
+              }}
+              className='
+              flex items-center justify-center gap-2
+              w-full py-2.5 rounded-xl bg-white/5 border border-white/10
+              text-white/50 text-sm hover:bg-white/10 hover:text-white/70
+              active:scale-95 transition-all mt-4'>
+                <UserCheck size={16}/>
+                Entrar com conta Demo
               </button>
             </form>
           </div>
