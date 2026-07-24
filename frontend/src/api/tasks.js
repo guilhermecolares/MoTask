@@ -15,6 +15,18 @@ API.interceptors.request.use(
     }, (error) => Promise.reject(error)
 )
 
+API.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('token')
+            localStorage.removeItem('motask-auth')
+            window.location.href = '/login'
+        }
+        return Promise.reject(error)
+    }
+)
+
 export const fetchTask = () => API.get(`/tasks`)
 
 export const createTask = (taskData) => API.post(`/tasks`, taskData)
