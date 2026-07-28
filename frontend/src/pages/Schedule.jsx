@@ -71,7 +71,7 @@ const Schedule = () => {
   const tasksByDay = {}
 
   tasks.forEach(task => {
-    if (task?.dueDate) {
+    if (task?.dueDate && !task.isCompleted) {
       const taskDate = new Date(task.dueDate)
 
       if (taskDate.getMonth() === currentMonth && taskDate.getFullYear() === currentYear) {
@@ -81,6 +81,17 @@ const Schedule = () => {
       }
     }
   })
+
+  const isOverdue = (day) => {
+    if (!tasksByDay[day]) return false
+
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const dayDate = new Date(currentYear, currentMonth, day)
+
+    return dayDate < today && tasksByDay[day].some(task => !task.isCompleted)
+  }
 
   return (
     <div className="space-y-6">
@@ -160,10 +171,10 @@ const Schedule = () => {
                         className="relative flex items-center justify-center w-full h-full">
                           <span>{day}</span>
                           {tasksByDay[day] && tasksByDay[day].length > 0 && (
-                            <span className="
-                            absolute top-1 right-1 w-4 h-4 rounded-full bg-orange-500
-                            text-[10px] text-white font-semibold flex items-center justify-center
-                            ">
+                            <span className={`
+                              absolute top-1 right-1 w-4 h-4 rounded-full
+                              text-[10px] text-white font-semibold flex-items justify-center
+                              ${isOverdue(day) ? 'bg-red-500' : 'bg-orange-500'}`}>
                               {tasksByDay[day].length}
                             </span>
                           )}

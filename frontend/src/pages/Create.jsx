@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom"
 import { Save, ArrowLeft, Plus, RotateCcw, X } from "lucide-react"
 import { useTaskStore } from '../stores/useTaskStore'
+import { useToastStore } from "../stores/useToastStore"
 import Breadcrumb from "../components/ui/Breadcrumb"
 
 const Create = () => {
@@ -9,6 +10,8 @@ const Create = () => {
   const createTask = useTaskStore(state => state.createTaskAction)
   const loadTask = useTaskStore(state => state.loadTask)
   const tasks = useTaskStore(state => state.tasks)
+
+  const showToast = useToastStore(state => state.showToast)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -70,6 +73,7 @@ const Create = () => {
     })
 
     navigate('/tasks')
+    showToast('Tarefa Atualizada!', 'success')
   }
 
   const handleReset = () => {

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { fetchTask, createTask, updateTask, deleteTask } from '../api/tasks.js'
+import { useToastStore } from './useToastStore.js'
 
 export const useTaskStore = create((set, get) => ({
     tasks: [],
@@ -38,6 +39,7 @@ export const useTaskStore = create((set, get) => ({
             set((state) => ({
                 tasks: state.tasks.filter(task => !taskIds.includes(task._id))
             }))
+            useToastStore.getState().showToast('Tarefa deletada!', 'success')
         } catch (error) {
             console.error(`Erro ao tentar deletar ${error}`)
         }
@@ -75,6 +77,8 @@ export const useTaskStore = create((set, get) => ({
             set((state) => ({
                 tasks: [response.data.task, ...state.tasks]
             }))
+
+            useToastStore.getState().showToast('Tarefa duplicada!', 'success')
         } catch (error) {
             console.error(`Erro ao duplicar:`, error)
         }
@@ -86,6 +90,7 @@ export const useTaskStore = create((set, get) => ({
             set((state) => ({
                 tasks: [response.data.task, ...state.tasks]
             }))
+            useToastStore.getState().showToast('Tarefa criada!', 'success')
         } catch (error) {
             console.error(`Falha ao criar tarefa: ${error}`)
             throw error

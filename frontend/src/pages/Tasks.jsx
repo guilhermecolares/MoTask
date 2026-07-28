@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import { useTaskStore } from "../stores/useTaskStore"
 import { useFilterStore } from "../stores/useFilterStore"
+import { useToastStore } from "../stores/useToastStore"
 
 import TaskCard from "../components/tasks/TaskCard"
 import TaskToolsBar from "../components/tasks/TaskToolsBar"
@@ -34,6 +35,8 @@ const Tasks = () => {
   const sortBy = useFilterStore(state => state.sortBy)
   const filterPriority = useFilterStore(state => state.filterPriority)
   const filterCategory = useFilterStore(state => state.filterCategory)
+
+  const showToast = useToastStore(state => state.showToast)
 
   useEffect(() => {
       localStorage.setItem('mockUserId', '6a0497b40ef6cdcadf0e05fd')
@@ -71,16 +74,19 @@ const Tasks = () => {
 
   const confirmDelete = async () => {
     await deleteTasks(selectedTasks)
+    showToast('Tarefa(s) excluída(s) com sucesso!', 'success')
     setShowConfirmModal(false)
     handleExitSelectMode()
   }
 
   const handleChangePriority = (task, newPriority) => {
     changePriority(task._id, newPriority)
+    showToast('Prioridade Atualizada!', 'success')
   }
 
   const handleDuplicate = (task) => {
     duplicateTask(task)
+    showToast('Tarefa Duplicada!', 'success')
   }
 
   const cancelDelete = async () => setShowConfirmModal(false)
@@ -115,6 +121,7 @@ const Tasks = () => {
 
   const handleSaveEdit = async (updatedData) => {
     await updateTask(editingTask._id, updatedData)
+    showToast('Tarefa Atualizada!', 'success')
     setShowEditModal(false)
     setEditingTask(null)
     loadTask()

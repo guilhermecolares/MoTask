@@ -1,11 +1,23 @@
 import { useAuthStore } from './stores/useAuthStore'
-import { Outlet, Link, useNavigate } from 'react-router-dom'
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
+import Toast from './components/ui/Toast'
+import { useToastStore } from './stores/useToastStore'
+import { useEffect } from 'react'
 
 const App = () => {
   const { isLogged, userName } = useAuthStore()
 
   const navigate = useNavigate()
+
+  const location = useLocation()
+
+  const hideToast = useToastStore(state => state.hideToast)
+
+  useEffect(() => {
+    hideToast()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-orange-950 via-orange-900/60 to-amber-950 flex flex-col relative'>
@@ -76,6 +88,8 @@ const App = () => {
       <main className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-6 py-4 lg:py-6">
         <Outlet />
       </main>
+
+      <Toast />
     </div>
   )
 }
