@@ -50,22 +50,22 @@ Gerenciador de tarefas fullstack com autenticação JWT, design glassmorphism e 
 ## 📸 Screenshots
 
 ### Home (Dashboard)
-![Home](screenshots/Home.jpeg)
+![Home](frontend/public/screenshots/Home.jpeg)
 
 ### Tarefas
-![Tarefas](screenshots/Tasks.jpeg)
+![Tarefas](frontend/public/screenshots/Tasks.jpeg)
 
 ### Calendário
-![Calendário](screenshots/Schedule.jpeg)
+![Calendário](frontend/public/screenshots/Schedule.jpeg)
 
 ### Criar Tarefa
-![Criar Tarefa](screenshots/Create.jpeg)
+![Criar Tarefa](frontend/public/screenshots/Create.jpeg)
 
 ### Login
-![Login](screenshots/Login.jpeg)
+![Login](frontend/public/screenshots/Login.jpeg)
 
 ### Perfil
-![Perfil](screenshots/Profile.jpeg)
+![Perfil](frontend/public/screenshots/Profile.jpeg)
 
 ---
 
