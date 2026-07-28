@@ -1,16 +1,93 @@
-# React + Vite
+# 🗂️ MoTask
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gerenciador de tarefas fullstack com autenticação JWT, design glassmorphism e deploy em produção. Construído inteiramente do zero, entendendo cada linha de código.
 
-Currently, two official plugins are available:
+🌐 **Acesse:** [mo-task-v1.vercel.app](https://mo-task-v1.vercel.app)  
+🔑 **Conta Demo:** demo@motask.com / demo123
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+- React 19 + Vite
+- Tailwind CSS (glassmorphism)
+- Zustand (3 stores)
+- Axios (interceptors JWT)
+- Lucide React (ícones)
 
-## Expanding the ESLint configuration
+### Backend
+- Node.js + Express
+- MongoDB Atlas + Mongoose
+- JWT (jsonwebtoken) + bcryptjs
+- CORS configurado
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Deploy
+- Frontend: Vercel
+- Backend: Render
+- Banco: MongoDB Atlas
+
+---
+
+## ✅ Funcionalidades
+
+- 🔐 Autenticação JWT (registro, login, logout)
+- 📋 CRUD completo de tarefas
+- 🏷️ Tags, categorias e prioridades
+- 🔍 Filtros, ordenação e busca
+- 📅 Calendário de agendamentos (Schedule)
+- 📊 Dashboard com estatísticas (Home)
+- ✅ Modo de seleção múltipla
+- ⋮ Menu de contexto (editar, deletar, duplicar)
+- 🔔 Toast de feedback
+- 💀 Skeleton loaders
+- 🎨 Glassmorphism design system
+- 📱 Responsivo (mobile + desktop)
+- 🔒 Token expirado → redireciona para login
+
+---
+
+## 📸 Screenshots
+
+### Home (Dashboard)
+![Home](screenshots/Home.jpeg)
+
+### Tarefas
+![Tarefas](screenshots/Tasks.jpeg)
+
+### Calendário
+![Calendário](screenshots/Schedule.jpeg)
+
+### Criar Tarefa
+![Criar Tarefa](screenshots/Create.jpeg)
+
+### Login
+![Login](screenshots/Login.jpeg)
+
+### Perfil
+![Perfil](screenshots/Profile.jpeg)
+
+---
+
+## 🛠️ Como rodar localmente
+
+```bash
+# Clone o repositório
+git clone https://github.com/guilhermecolares/MoTask.git
+
+# Backend
+cd MoTask/backend
+npm install
+npm run dev
+
+# Frontend
+cd MoTask/frontend
+npm install
+npm run dev
+```
+
+⚠️ Crie um arquivo `.env` no backend com as variáveis `MONGO_URL`, `JWT_SECRET` e `PORT`.
+
+---
+
+Feito com ❤️ por [Guilherme Colares](https://github.com/guilhermecolares)
