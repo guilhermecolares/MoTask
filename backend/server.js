@@ -12,7 +12,7 @@ const app = express()
 const port = process.env.PORT || 5000
 
 const allowedOrigins = [
-    'https://mo-task.vercel.app',
+    'https://mo-task-v1.vercel.app',
     'http://localhost:5173',
     'http://localhost:3000'
 ]
