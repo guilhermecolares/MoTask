@@ -1,6 +1,6 @@
 # 🗂️ MoTask
 
-Gerenciador de tarefas fullstack com autenticação JWT, design glassmorphism e deploy em produção. Construído inteiramente do zero, entendendo cada linha de código.
+Gerenciador de tarefas fullstack com autenticação JWT, design glassmorphism e deploy em produção.
 
 🌐 **Acesse:** [mo-task-v1.vercel.app](https://mo-task-v1.vercel.app)  
 🔑 **Conta Demo:** demo@motask.com / demo123
